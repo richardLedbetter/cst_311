@@ -1,0 +1,20 @@
+from socket import *
+#import socket
+import sys 
+import time
+
+server = socket(AF_INET, SOCK_DGRAM)#creates listening socket
+server.bind(('', 0))
+
+
+print("working")
+for i in range (10):
+	try:
+		w = time.time()
+		server.sendto("ping".encode(), ('<broadcast>', 3000))
+		server.settimeout(1)
+		server.recv(2048)
+		print("took",time.time()-)
+	except timeout:
+		print("network error")
+
