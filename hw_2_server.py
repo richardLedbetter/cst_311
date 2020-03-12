@@ -1,3 +1,4 @@
+#multithreading is needed to handle the mutlitple connections 
 import socket
 from _thread import *
 
@@ -11,20 +12,29 @@ global first
 first = "blank"
 global count
 count = 0
+global connected
+connected =0
 
 
 def interface(conn,addr):
 	global first
 	global count
+	global connected
+	connected = connected +1
+	c2 = count
+	name = ""
+	while(connected<1):
+		continue
 	message = conn.recv(2048)
 	if( first =="blank"):
-		 first = message.decode("utf-8")+ " recived before"
+		first = message.decode("utf-8")+ " recived before"
 	else:
 		first = first+" " + message.decode("utf-8")
 	count = count+1
 	while(count<2):
 		continue
-	conn.send(first.encode())
+	print("sending"+first+ "to connection" +str(c2))
+	conn.send((first).encode())
 
 
 while True:
